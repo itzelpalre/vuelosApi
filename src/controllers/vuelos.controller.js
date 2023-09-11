@@ -22,6 +22,29 @@ export const createVuelo = async (req, res) => {
   }
 };
 
+export const updateVuelo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { salida, destino, fecha } = req.body;
+
+    const [result] = await pool.query(
+      "UPDATE rutas SET salida = IFNULL(?, salida), destino = IFNULL(?, destino), fecha = IFNULL(?, fecha), WHERE id = ?",
+      [salida, destino, fecha]
+    );
+
+    if (result.affectedRows === 0)
+      return res.status(404).json({ message: "Ruta no encontrada" });
+
+    const [rows] = await pool.query("SELECT * FROM rutas WHERE id = ?", [
+      id,
+    ]);
+
+    res.json(rows[0]);
+  } catch (error) {
+    return res.status(500).json({ message: "Something goes wrong" });
+  }
+};
+
 export const deleteVuelo = async (req, res) => {
   try {
     const { id } = req.params;

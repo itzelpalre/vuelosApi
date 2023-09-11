@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createVuelo,
   getVuelos,
+  updateVuelo,
   deleteVuelo,
 } from "../controllers/vuelos.controller.js";
 
@@ -14,7 +15,7 @@ router.get("/rutavuelo", getVuelos);
 router.post("/rutavuelo", createVuelo);
 
 // UPDATE una Ruta
-router.put("/rutavuelo", deleteVuelo);
+router.patch("/rutavuelo/:id", updateVuelo);
 
 // DELETE una Ruta
 router.delete("/rutavuelo/:id", deleteVuelo);
