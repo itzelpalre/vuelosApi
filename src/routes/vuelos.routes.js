@@ -13,7 +13,10 @@ router.get("/rutavuelo", getVuelos);
 // INSERT An Employee
 router.post("/rutavuelo", createVuelo);
 
+// UPDATE una Ruta
+router.put("/rutavuelo", deleteVuelo);
+
 // DELETE una Ruta
-router.delete("/rutavuelo", deleteVuelo);
+router.delete("/rutavuelo/:id", deleteVuelo);
 
 export default router;
