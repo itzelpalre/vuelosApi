@@ -2,16 +2,20 @@ import { Router } from "express";
 import {
   createVuelo,
   getVuelos,
+  getRuta,
   updateVuelo,
   deleteVuelo,
 } from "../controllers/vuelos.controller.js";
 
 const router = Router();
 
-// GET all Employees
+// GET all Rutas
 router.get("/rutavuelo", getVuelos);
 
-// INSERT An Employee
+// GET una Ruta
+router.get("/rutavuelo/:id", getRuta);
+
+// INSERT una Ruta
 router.post("/rutavuelo", createVuelo);
 
 // UPDATE una Ruta
