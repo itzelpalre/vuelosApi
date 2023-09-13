@@ -19,7 +19,7 @@ router.get("/rutavuelo/:id", getRuta);
 router.post("/rutavuelo", createVuelo);
 
 // UPDATE una Ruta
-router.patch("/rutavuelo/:id", updateVuelo);
+router.put("/rutavuelo/:id", updateVuelo);
 
 // DELETE una Ruta
 router.delete("/rutavuelo/:id", deleteVuelo);
