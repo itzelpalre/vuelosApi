@@ -26,27 +26,14 @@ export const getRuta = async (req, res) => {
   }
 };
 
-export const createVuelo = async (req, res) => {
-  try {
-    const { salida, destino, fecha } = req.body;
-    const [rows] = await pool.query(
-      "INSERT INTO rutas (salida, destino, fecha) VALUES (?, ?, ?)",
-      [salida, destino, fecha]
-    );
-    res.status(201).json({ id: rows.insertId, salida, destino, fecha });
-  } catch (error) {
-    return res.status(500).json({ message: "Something goes wrong_13" });
-  }
-};
-
 export const updateVuelo = async (req, res) => {
   try {
     const { id } = req.params;
-    const { salida, destino, fecha } = req.body;
+    const { salida, destino, fecha, pasajeros, costo } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE rutas SET salida = IFNULL(?, salida), destino = IFNULL(?, destino), fecha = IFNULL(?, fecha), WHERE id = ?",
-      [salida, destino, fecha]
+      "UPDATE rutas SET salida = IFNULL(?, salida), destino = IFNULL(?, destino), fecha = IFNULL(?, fecha), pasajeros = IFNULL(?, pasajeros), costo = IFNULL(?, costo), WHERE id = ?",
+      [salida, destino, fecha, pasajeros, costo, id]
     );
 
     if (result.affectedRows === 0)
@@ -59,6 +46,19 @@ export const updateVuelo = async (req, res) => {
     res.json(rows[0]);
   } catch (error) {
     return res.status(500).json({ message: "Something goes wrong" });
+  }
+};
+
+export const createVuelo = async (req, res) => {
+  try {
+    const { salida, destino, fecha, pasajeros, costo } = req.body;
+    const [rows] = await pool.query(
+      "INSERT INTO rutas (salida, destino, fecha, pasajeros, costo) VALUES (?, ?, ?, ?, ?)",
+      [salida, destino, fecha, pasajeros, costo]
+    );
+    res.status(201).json({ id: rows.insertId, salida, destino, fecha, pasajeros, costo });
+  } catch (error) {
+    return res.status(500).json({ message: "Something goes wrong_13" });
   }
 };
 
