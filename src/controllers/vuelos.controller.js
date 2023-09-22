@@ -32,7 +32,7 @@ export const updateVuelo = async (req, res) => {
     const { salida } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE rutas SET salida = IFNULL(?, salida) WHERE id = ?",
+      "UPDATE rutas SET salida = IFNULL(?, salida), destino = IFNULL(?, destino), WHERE id = ?",
       [salida, id]
     );
 
