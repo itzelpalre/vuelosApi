@@ -29,11 +29,11 @@ export const getRuta = async (req, res) => {
 export const updateVuelo = async (req, res) => {
   try {
     const { id } = req.params;
-    const { salida } = req.body;
+    const { salida, destino, fecha, pasajeros, costo } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE rutas SET salida = IFNULL(?, salida), destino = IFNULL(?, destino), WHERE id = ?",
-      [salida, id]
+      "UPDATE rutas SET salida = IFNULL(?, salida), destino = IFNULL(?, destino), fecha = IFNULL(?, fecha), pasajeros = IFNULL(?, pasajeros), costo = IFNULL(?, costo) WHERE id = ?",
+      [salida, destino, fecha, pasajeros, costo, id]
     );
 
     if (result.affectedRows === 0)
@@ -49,29 +49,6 @@ export const updateVuelo = async (req, res) => {
   }
 };
 
-/*export const updateVuelo = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { salida, destino, fecha, pasajeros, costo } = req.body;
-
-    const [result] = await pool.query(
-      "UPDATE rutas SET ? WHERE id",
-      [salida, destino, fecha, pasajeros, costo, id]
-    );
-
-    if (result.affectedRows === 0)
-      return res.status(404).json({ message: "Ruta no encontrada" });
-
-    const [rows] = await pool.query("SELECT * FROM rutas WHERE id = ?", [
-      id,
-    ]);
-
-    res.json(rows[0]);
-  } catch (error) {
-    return res.status(500).json({ message: "Something goes wrong" });
-  }
-};*/
-
 export const createVuelo = async (req, res) => {
   try {
     const { salida, destino, fecha, pasajeros, costo } = req.body;
@@ -84,6 +61,7 @@ export const createVuelo = async (req, res) => {
     return res.status(500).json({ message: "Something goes wrong_13" });
   }
 };
+
 
 export const deleteVuelo = async (req, res) => {
   try {
